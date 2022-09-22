@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.users-profile {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.user-profile {
+  width: 200px;
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  img {
+    width: 50px;
+  }
+  a {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.nav-button {
+  display: flex;
+  gap: 20px;
+  height: 30px;
+}
+
+.form-position {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: body 1.5s ease;
+  animation-direction: normal;
+}
+
+@keyframes body {
+  0% {
+    margin-left: -100px;
+  }
+
+  100% {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .user-profile {
+    max-width: calc(100vw - 100px * 2);
+  }
+}

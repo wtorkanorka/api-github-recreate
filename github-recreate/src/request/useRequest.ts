@@ -19,7 +19,7 @@ export const Api = {
     users: any,
     setUsers: any,
     pageNumber: number = 1,
-    setPerRequest: number
+    setPerRequest: string
   ) {
     const user = await useRequest(
       `search/users?q=${users}&page=${pageNumber}&per_page=10`
@@ -29,7 +29,7 @@ export const Api = {
     } else {
       console.log(user.items);
       setUsers(user.items);
-      setPerRequest(user.total_count)
+      setPerRequest(user.total_count);
     }
   },
 };

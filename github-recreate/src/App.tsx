@@ -1,12 +1,16 @@
-import "./App.css";
+import styles from "./App.module.scss";
 import { Api } from "./request/useRequest";
 import { useState, useEffect } from "react";
+import { Link, Routes, Route } from "react-router-dom";
+import { User } from "./pages/User";
+import { AllUsers } from "./pages/AllUsers";
+import { Repos } from "./pages/Repos";
 
 function App() {
   const [users, setUsers] = useState<null | []>([]);
   const [login, setLogin] = useState<string>("");
-  const [pageNumber, setPageNumber] = useState(0);
-  const [perRequest, setPerRequest] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [perRequest, setPerRequest] = useState();
   useEffect(() => {
     if (login === "") {
       return;
@@ -15,10 +19,10 @@ function App() {
     }
   }, [login, pageNumber]);
   console.log(perRequest, "perRequest");
-  // setUsersVisited(()=>{perRequest - })
+
   return (
     <>
-      <div>
+      <div className={styles["form-position"]}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -29,40 +33,17 @@ function App() {
           <input type="text" placeholder="user name" name="userName" />
           <input type="submit" value="Отправить" />
         </form>
-        <p>Отрисовано пользователей: {pageNumber * 10 }</p>
+        <p>Всего пользователей: {perRequest}</p>
       </div>
-      <div className="container">
-        <div className="nav-button">
-          <button
-            onClick={() => {
-              setPageNumber(() => pageNumber - 1);
-            }}
-          >
-            Предыдущаяя страница
-          </button>
-          <button
-            onClick={() => {
-              setPageNumber(() => pageNumber + 1);
-            }}
-          >
-            следующая страница
-          </button>
-        </div>
-        <div className="users-profile">
-          {users?.length !== 0 ? (
-            users?.map((i, index) => {
-              return (
-                <div key={index} className="user-profile">
-                  <img src={i.avatar_url} alt="Аватар пользователя" />
-                  <p>{i.login}</p>
-                </div>
-              );
-            })
-          ) : (
-            <></>
-          )}
+      <div className={styles["container"]}>
+        <div className={styles["users-profile"]}>
+          {users?.length !== 0 ? <AllUsers users={users} /> : <></>}
         </div>
       </div>
+      <Routes>
+        <Route path="/:user" element={<User />} />
+        <Route path="/:user/:repos" element={<Repos />} />
+      </Routes>
     </>
   );
 }
