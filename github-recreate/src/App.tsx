@@ -1,4 +1,4 @@
-import styles from "./App.module.scss";
+import styles from "./styles/App.module.scss";
 import { Api } from "./request/useRequest";
 import { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
@@ -7,11 +7,16 @@ import { AllUsers } from "./pages/AllUsers";
 import { Repos } from "./pages/Repos";
 
 function App() {
-  const [users, setUsers] = useState<null | []>([]);
+  const [users, setUsers] = useState<[]>([]);
   const [login, setLogin] = useState<string>("");
   const [pageNumber, setPageNumber] = useState(1);
-  const [perRequest, setPerRequest] = useState();
+  const [perRequest, setPerRequest] = useState(0);
+  // const [component, setComponent] = useState(<Repos />);
   useEffect(() => {
+    setPageNumber(1);
+  }, []);
+  useEffect(() => {
+    console.log(pageNumber, "Page number");
     if (login === "") {
       return;
     } else {
@@ -19,6 +24,7 @@ function App() {
     }
   }, [login, pageNumber]);
   console.log(perRequest, "perRequest");
+  console.log(users, "users app");
 
   return (
     <>
@@ -28,22 +34,69 @@ function App() {
             e.preventDefault();
 
             setLogin(e.target.userName.value);
+            setPageNumber(Number(e.target.selectPageNumber.value) + 1);
           }}
         >
           <input type="text" placeholder="user name" name="userName" />
           <input type="submit" value="Отправить" />
+          <input
+            type="number"
+            name="selectPageNumber"
+            placeholder="Введи номер страницы"
+            max={perRequest / 10}
+            min="1"
+          />
         </form>
         <p>Всего пользователей: {perRequest}</p>
+        <p>Всего страниц: {Math.ceil(perRequest / 10)}</p>
+        {/* {users?.length !== 0 ? (
+          <p>пользователей просмострено: {pageNumber * 10}</p>
+        ) : (
+          <p></p>
+        )} */}
       </div>
       <div className={styles["container"]}>
-        <div className={styles["users-profile"]}>
-          {users?.length !== 0 ? <AllUsers users={users} /> : <></>}
-        </div>
+        {users?.length == 0 && login !== "" ? (
+          <button onClick={() => setPageNumber(1)}>
+            Вернуться на 1 страницу
+          </button>
+        ) : (
+          <></>
+        )}
+        {users?.length !== 0 ? (
+          <div className={styles["buttons-with-users"]}>
+            <div className={styles["button-position"]}>
+              {pageNumber > 1 ? (
+                <button
+                  onClick={() => {
+                    setPageNumber(() => pageNumber - 1);
+                  }}
+                >
+                  Назад по пользователям
+                </button>
+              ) : (
+                <></>
+              )}
+
+              {pageNumber < users?.length - 1 ? (
+                <button
+                  onClick={() => {
+                    setPageNumber(() => pageNumber + 1);
+                  }}
+                >
+                  Дальше
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
+
+            <AllUsers users={users} />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
-      <Routes>
-        <Route path="/:user" element={<User />} />
-        <Route path="/:user/:repos" element={<Repos />} />
-      </Routes>
     </>
   );
 }

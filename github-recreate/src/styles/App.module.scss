@@ -1,27 +1,20 @@
+@import url("../reset/reset.css");
+
+form input[type="number"] {
+  width: 167px;
+}
+
 .container {
   display: flex;
-  flex-direction: column;
+
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .users-profile {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.user-profile {
-  width: 200px;
-  padding: 10px 10px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  img {
-    width: 50px;
-  }
-  a {
-    display: flex;
-    gap: 10px;
-  }
 }
 
 .nav-button {
@@ -36,6 +29,15 @@
   align-items: center;
   animation: body 1.5s ease;
   animation-direction: normal;
+}
+.button-position {
+}
+
+.buttons-with-users {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
 @keyframes body {

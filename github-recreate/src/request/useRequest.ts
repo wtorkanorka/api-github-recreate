@@ -19,7 +19,7 @@ export const Api = {
     users: any,
     setUsers: any,
     pageNumber: number = 1,
-    setPerRequest: string
+    setPerRequest: any
   ) {
     const user = await useRequest(
       `search/users?q=${users}&page=${pageNumber}&per_page=10`
@@ -31,6 +31,18 @@ export const Api = {
       setUsers(user.items);
       setPerRequest(user.total_count);
     }
+  },
+  async getRepos(
+    repositories: any,
+    setRepositories: any,
+    loginForRepos: string,
+    pageNumberForRepos: number = 1
+  ) {
+    const repos = await useRequest(
+      `users/${loginForRepos}/repos?per_page=5&page=${pageNumberForRepos}`
+    );
+
+    setRepositories(repos);
   },
 };
 //https://api.github.com/search/users?q=${props.login}&page=1&per_page=10  //поиск пользователей
