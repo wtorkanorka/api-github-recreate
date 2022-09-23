@@ -44,6 +44,21 @@ export const Api = {
 
     setRepositories(repos);
   },
+  async getIssues(
+    login: string,
+    repos: string,
+    setIssues: any,
+    // issues: [],
+
+    setRepos: any,
+    setLogin: any
+  ) {
+    const issue = await useRequest(
+      // `repos/${login}/${repos}/issues${indexIssue > 0 ? "/" + indexIssue : ""}`
+      `repos/${login}/${repos}/issues}`
+    );
+    setIssues(issue);
+  },
 };
 //https://api.github.com/search/users?q=${props.login}&page=1&per_page=10  //поиск пользователей
 

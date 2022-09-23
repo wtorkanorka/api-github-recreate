@@ -10,6 +10,7 @@ form input[type="number"] {
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 50px;
 }
 .users-profile {
   display: flex;
@@ -29,8 +30,7 @@ form input[type="number"] {
   align-items: center;
   animation: body 1.5s ease;
   animation-direction: normal;
-}
-.button-position {
+  margin-bottom: 50px;
 }
 
 .buttons-with-users {

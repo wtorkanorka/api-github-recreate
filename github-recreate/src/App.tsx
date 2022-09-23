@@ -2,7 +2,7 @@ import styles from "./styles/App.module.scss";
 import { Api } from "./request/useRequest";
 import { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
-import { User } from "./pages/User";
+// import { User } from "./pages/User";
 import { AllUsers } from "./pages/AllUsers";
 import { Repos } from "./pages/Repos";
 
@@ -49,16 +49,11 @@ function App() {
         </form>
         <p>Всего пользователей: {perRequest}</p>
         <p>Всего страниц: {Math.ceil(perRequest / 10)}</p>
-        {/* {users?.length !== 0 ? (
-          <p>пользователей просмострено: {pageNumber * 10}</p>
-        ) : (
-          <p></p>
-        )} */}
       </div>
       <div className={styles["container"]}>
         {users?.length == 0 && login !== "" ? (
           <button onClick={() => setPageNumber(1)}>
-            Вернуться на 1 страницу
+            Превышен запрос на страницы, вернуться на 1 страницу
           </button>
         ) : (
           <></>

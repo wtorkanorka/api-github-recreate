@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { Repos } from "./Repos";
 import { Api } from "../request/useRequest";
 import { useEffect, useState } from "react";
 import styles from "../styles/allUsers.module.scss";
+import { Routes, Route, Link } from "react-router-dom";
 
 interface User {
   html_url: string;
@@ -41,10 +41,12 @@ export function AllUsers(props: any) {
                 console.log(i.login, "LoginAllUsers");
               }}
             >
-              <a href={`${i.html_url}`}>
-                <img src={i.avatar_url} alt="Аватар пользователя" />
-              </a>
-              <p>{i.login}</p>
+              <Link to={'/' + i.login}>
+                <a href={`${i.html_url}`}>
+                  <img src={i.avatar_url} alt="Аватар пользователя" />
+                </a>
+                <p>{i.login}</p>
+              </Link>
             </button>
           );
         })}
@@ -89,7 +91,12 @@ export function AllUsers(props: any) {
                 <></>
               )}
             </div>
-            <Repos repos={repositories} login={loginForRepos} />
+            <Routes>
+              <Route
+                path="/:login"
+                element={<Repos repos={repositories} login={loginForRepos} />}
+              />
+            </Routes>
           </div>
         ) : (
           <></>
