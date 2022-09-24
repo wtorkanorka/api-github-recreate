@@ -6,6 +6,7 @@ import { Link, Routes, Route } from "react-router-dom";
 import { AllUsers } from "./pages/AllUsers";
 import { Repos } from "./pages/Repos";
 import { Loading } from "./pages/Loading";
+import cx from "classnames";
 
 function App() {
   const [users, setUsers] = useState<[]>([]);
@@ -27,10 +28,35 @@ function App() {
   }, [login, pageNumber]);
   console.log(perRequest, "perRequest");
   console.log(users, "users app");
-
+  window.addEventListener("scroll", (e) => {
+    document.body.style.cssText = `--scrollTop: ${window.scrollY}px`;
+  });
   return (
     <>
-      {loading ? <Loading /> : null}
+      <header className={styles["main-header"]}>
+        <div className={styles["layers"]}>
+          <div className={styles["layer__header"]}>
+            <div className={styles["layers__caption"]}>Welcome to Parallax</div>
+            <div className={styles["layers__title"]}>Fairy Forest</div>
+          </div>
+          <div className={cx(styles["layer"], styles["layers__base"])}></div>
+          <div className={cx(styles["layer"], styles["layers__middle"])}></div>
+          <div className={cx(styles["layer"], styles["layers__front"])}></div>
+        </div>
+      </header>
+      <article className={styles["main-article"]}>
+        <div className={styles["main-article__content"]}>
+          <h2 className={styles["main-article__header"]}> to be continued</h2>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsa
+            cumque facere, dolores eveniet similique recusandae eaque maxime
+            nobis omnis dolorum rerum commodi quis nisi molestias facilis
+            repellat distinctio laudantium neque, quaerat, ipsam vel. Corporis.
+          </p>
+          <div className={styles["copy"]}>© Api GitHub</div>
+        </div>
+      </article>
+      {/* {loading ? <Loading /> : null}
       <div className={styles["form-position"]}>
         <form
           onSubmit={(e) => {
@@ -97,7 +123,7 @@ function App() {
         ) : (
           <></>
         )}
-      </div>
+      </div> */}
     </>
   );
 }

@@ -35,7 +35,6 @@ export function Issue(props: any) {
     <div className={styles["issues"]}>
       {/* {loading ? <Loading /> : null} */}
       {login !== "" && repos !== "" ? (
-        
         issues?.map((i: Issue, index) => {
           return (
             <button
@@ -56,7 +55,6 @@ export function Issue(props: any) {
                   justifyContent: "center",
                 }}
               >
-                {" "}
                 {i.body}
               </p>
             </button>

@@ -1,4 +1,13 @@
 @import url("../reset/reset.css");
+:root {
+  --index: calc(1vw + 1vh);
+}
+
+body {
+  background-color: #010101;
+  color: white;
+  line-height: 1.55;
+}
 
 form input[type="number"] {
   width: 167px;
@@ -38,6 +47,76 @@ form input[type="number"] {
   flex-direction: column;
   gap: 10px;
   align-items: center;
+}
+.main-header {
+  position: relative;
+}
+.main-header::after {
+  content: "";
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: calc(var(--index) * 10);
+  background-image: url("../assets/ground.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  bottom: calc(var(--index) * -5);
+}
+
+.layers {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+.layer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+
+  z-index: 2;
+}
+.layers__base {
+  background-image: url("../assets/layer-base.png");
+  transform: translate3d(0, calc(var(--scrollTop) / 1.6), 0);
+  z-index: 0;
+}
+.layers__middle {
+  background-image: url("../assets/layer-middle.png");
+  transform: translate3d(0, calc(var(--scrollTop) / 2.5), 0);
+}
+
+.layers__front {
+  background-image: url("../assets/layer-front.png");
+  transform: translate3d(0, calc(var(--scrollTop) / 5.7), 0);
+}
+.layer__header {
+  z-index: 1;
+  transform: translate3d(0, calc(var(--scrollTop) / 2), 0);
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #e7e7e0;
+  text-shadow: 0 0 15px #9e7d35;
+}
+
+.layers__title {
+  font-size: calc(var(--index) * 2.5);
+  letter-spacing: calc(var(--index) / 2.25);
+}
+.layers__caption {
+  font-size: calc(var(--index) / 1.175);
+  letter-spacing: calc(var(--index) / 3.5);
+  margin-top: calc(var(--index) * -1);
+}
+.main-article {
+  background-image: url("../assets/dungeon.jpg");
+  min-height: 100vh;
 }
 
 @keyframes body {
