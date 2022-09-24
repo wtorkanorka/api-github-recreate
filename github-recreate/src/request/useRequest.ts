@@ -1,8 +1,9 @@
 import React from "react";
-
+import { useState } from "react";
 const defaultErrorResponse = {
   error: "Something went wrong. Please try again later",
 };
+
 const useRequest = async (path: string) => {
   try {
     const res = await fetch(`http://api.github.com/${path}`);
@@ -34,6 +35,7 @@ export const Api = {
   },
   async getRepos(
     repositories: any,
+
     setRepositories: any,
     loginForRepos: string,
     pageNumberForRepos: number = 1
@@ -55,7 +57,7 @@ export const Api = {
   ) {
     const issue = await useRequest(
       // `repos/${login}/${repos}/issues${indexIssue > 0 ? "/" + indexIssue : ""}`
-      `repos/${login}/${repos}/issues}`
+      `repos/${login}/${repos}/issues`
     );
     setIssues(issue);
   },

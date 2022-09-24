@@ -3,6 +3,7 @@ import { Api } from "../request/useRequest";
 import { useEffect, useState } from "react";
 import styles from "../styles/allUsers.module.scss";
 import { Routes, Route, Link } from "react-router-dom";
+import { Loading } from "../pages/Loading";
 
 interface User {
   html_url: string;
@@ -14,17 +15,23 @@ export function AllUsers(props: any) {
   const [loginForRepos, setLoginForRepos] = useState("");
   const [repositories, setRepositories] = useState([]);
   const [pageNumberForRepos, setPageNumberForRepos] = useState(1);
+  const [loading, setLoading] = useState(false);
   console.log(props.users, "props allusers");
   useEffect(() => {
     if (loginForRepos === "") {
       return;
     } else {
+      setLoading(true);
       Api.getRepos(
         repositories,
         setRepositories,
         loginForRepos,
         pageNumberForRepos
       );
+      setTimeout(() => {
+        setLoading(false);
+      },1000);
+      console.log(loading);
     }
   }, [loginForRepos, pageNumberForRepos]);
   console.log(repositories);
@@ -41,17 +48,17 @@ export function AllUsers(props: any) {
                 console.log(i.login, "LoginAllUsers");
               }}
             >
-              <Link to={'/' + i.login}>
-                <a href={`${i.html_url}`}>
-                  <img src={i.avatar_url} alt="Аватар пользователя" />
-                </a>
-                <p>{i.login}</p>
-              </Link>
+              {/* <Link to={"/" + i.login}> */}
+              <a href={`${i.html_url}`}>
+                <img src={i.avatar_url} alt="Аватар пользователя" />
+              </a>
+              <p>{i.login}</p>
+              {/* </Link> */}
             </button>
           );
         })}
       </div>
-
+      {loading ? <Loading /> : null}
       <div>
         {repositories?.length == 0 && loginForRepos !== "" ? (
           <button
@@ -91,12 +98,13 @@ export function AllUsers(props: any) {
                 <></>
               )}
             </div>
-            <Routes>
+            {/* <Routes>
               <Route
-                path="/:login"
+                path="/:login/*"
                 element={<Repos repos={repositories} login={loginForRepos} />}
               />
-            </Routes>
+            </Routes> */}
+            <Repos repos={repositories} login={loginForRepos} />
           </div>
         ) : (
           <></>

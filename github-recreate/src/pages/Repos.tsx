@@ -3,6 +3,7 @@ import styles from "../styles/repo.module.scss";
 import { Issue } from "./Issue";
 import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import { Loading } from "./Loading";
 
 export function Repos(props: any) {
   const [loginIssue, setLoginIssue] = useState("");
@@ -23,25 +24,27 @@ export function Repos(props: any) {
                 setRepos(i.name);
               }}
             >
-              <Link to={"/" + props.login + "/" + i.name + '/issues'}>
+              {/* <Link to={"/" + i.name + "/issues"}> */}
                 <p>Название репозитория: {i.name}</p>
-                <p>Дата создания: {i.created_at}</p>
-                <p>Дата обновления: {i.updated_at}</p>
-                <p>id: {i.id}</p>
-                <p>Сейчас просматривают: {i.watchers}</p>
-              </Link>
+              {/* </Link> */}
+              <p>Дата создания: {i.created_at}</p>
+              <p>Дата обновления: {i.updated_at}</p>
+              <p>id: {i.id}</p>
+              <p>Сейчас просматривают: {i.watchers}</p>
             </button>
           );
         })}
       </div>
       {loginIssue !== "" && repos !== "" ? (
-        <Routes>
-          <Route
-            path="/:login/:repos/issues"
-            element={<Issue login={loginIssue} repos={repos} />}
-          />
-        </Routes>
+        // <Routes>
+        //   <Route
+        //     path="*/:login/issues"
+        //     element={
+        <Issue login={loginIssue} repos={repos} />
       ) : (
+        //   }
+        //   />
+        // </Routes>
         <></>
       )}
     </div>
