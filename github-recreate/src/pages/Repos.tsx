@@ -18,7 +18,7 @@ export function Repos(props: any) {
   console.log(props.repos, "props repos");
   return (
     <div className={styles["container"]}>
-      <p>репозитории: {props.login}</p>
+      <p className={styles['repo-paragraph']}>репозитории: {props.login}</p>
 
       <div className={styles["repositories"]}>
         {props?.repos?.map((i: Issue, index: number) => {

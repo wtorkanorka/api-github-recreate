@@ -34,29 +34,29 @@ export function Issue(props: any) {
 
   return (
     <div className={styles["issues"]}>
+      {loading ? <Loading /> : null}
+
       {/* {loading ? <Loading /> : null} */}
-      {login !== "" && repos !== "" ? (
-        issues?.map((i: Issue, index) => {
-          return (
-            <button
-              key={index}
-              onClick={() => {
-                setIndexIssue(index + 1);
-                if (visible) {
-                  setVisible(false);
-                } else {
-                  setVisible(true);
-                }
-              }}
-            >
-              <p>{i.title}</p>
-              <p>{i.body}</p>
-            </button>
-          );
-        })
-      ) : (
-       null
-      )}
+      {login !== "" && repos !== ""
+        ? issues?.map((i: Issue, index) => {
+            return (
+              <button
+                key={index}
+                onClick={() => {
+                  // setIndexIssue(index + 1);
+                  if (visible) {
+                    setVisible(false);
+                  } else {
+                    setVisible(true);
+                  }
+                }}
+              >
+                <p>{i.title}</p>
+                <p>{i.body}</p>
+              </button>
+            );
+          })
+        : null}
     </div>
   );
 }

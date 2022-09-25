@@ -12,7 +12,7 @@ export function Loading() {
         height: "100vh",
         backdropFilter: "blur(13px)",
         flexDirection: "column",
-        color: "black",
+        color: "white",
         top: "0",
         left: "0",
         textAlign: "center",
