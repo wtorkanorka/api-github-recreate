@@ -4,6 +4,13 @@ import { Issue } from "./Issue";
 import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { Loading } from "./Loading";
+interface Issue {
+  name: string;
+  created_at: string;
+  updated_at: string;
+  id: number;
+  watchers: string;
+}
 
 export function Repos(props: any) {
   const [loginIssue, setLoginIssue] = useState("");
@@ -14,7 +21,8 @@ export function Repos(props: any) {
       <p>репозитории: {props.login}</p>
 
       <div className={styles["repositories"]}>
-        {props?.repos?.map((i: any, index: number) => {
+        {props?.repos?.map((i: Issue, index: number) => {
+          console.log(typeof i, "ТИП ISSUE");
           return (
             <button
               key={index}
@@ -25,7 +33,7 @@ export function Repos(props: any) {
               }}
             >
               {/* <Link to={"/" + i.name + "/issues"}> */}
-                <p>Название репозитория: {i.name}</p>
+              <p className={styles['repo-paragraph']}>Название репозитория: {i.name}</p>
               {/* </Link> */}
               <p>Дата создания: {i.created_at}</p>
               <p>Дата обновления: {i.updated_at}</p>

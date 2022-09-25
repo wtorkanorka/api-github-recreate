@@ -5,12 +5,12 @@ const defaultErrorResponse = {
 };
 
 const useRequest = async (path: string) => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   try {
-    setLoading(true);
+    // setLoading(true);
     const res = await fetch(`http://api.github.com/${path}`);
     const data = res.json();
-    setLoading(false);
+    // setLoading(false);
     return data;
   } catch (error) {
     console.log(`useRequest error: `, error);

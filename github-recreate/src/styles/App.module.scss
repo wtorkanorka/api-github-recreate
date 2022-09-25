@@ -134,16 +134,21 @@ form input {
   color: var(--text);
   text-shadow: 0 0 15px #9e7d35;
   will-change: tranform;
+  animation-name: headerAnim;
+  animation-duration: 1.5s;
+  animation-direction: normal;
 }
 
 .title {
   font-size: calc(var(--index) * 2.5);
   letter-spacing: calc(var(--index) / 2.25);
+ 
 }
 .caption {
   font-size: calc(var(--index) / 1.175);
   letter-spacing: calc(var(--index) / 3.5);
   margin-top: calc(var(--index) * -1);
+ 
 }
 .main-article {
   background-image: url("../assets/dungeon.jpg");
@@ -153,13 +158,14 @@ form input {
   color: var(--text);
   display: flex;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   position: relative;
   text-align: center;
-  padding: 50px 50px;
+  // padding: 50px 50px;
 }
 .main-article-content {
   transform: translate3d(0, calc(var(--scrollTop) / 10), 0);
+  padding: 100px 0;
   will-change: tranform;
 }
 .article-header {
@@ -178,7 +184,7 @@ form input {
 }
 .copy {
   position: absolute;
-  bottom: 0;
+  bottom: calc(var(--index) * 6);
   left: 44%;
   opacity: 0.45;
   font-size: calc(var(--index) * 0.75);
@@ -194,6 +200,15 @@ form input {
 
   100% {
     margin-left: 0px;
+  }
+}
+
+@keyframes headerAnim {
+  0% {
+    margin-bottom: -100px;
+  }
+  100% {
+    margin-bottom: 0px;
   }
 }
 

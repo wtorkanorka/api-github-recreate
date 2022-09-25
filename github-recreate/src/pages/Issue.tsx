@@ -5,6 +5,7 @@ import { Loading } from "./Loading";
 
 interface Issue {
   title: string;
+  body: string;
 }
 
 export function Issue(props: any) {
@@ -54,7 +55,7 @@ export function Issue(props: any) {
           );
         })
       ) : (
-        <></>
+       null
       )}
     </div>
   );

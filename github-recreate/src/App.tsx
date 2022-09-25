@@ -48,8 +48,8 @@ function App() {
       </header>
 
       <article className={styles["main-article"]}>
+        {loading ? <Loading /> : null}
         <div className={styles["main-article-content"]}>
-          {loading ? <Loading /> : null}
           <div className={styles["form-position"]}>
             <form
               onSubmit={(e) => {
@@ -80,9 +80,7 @@ function App() {
               <button onClick={() => setPageNumber(1)}>
                 Превышен запрос на страницы, вернуться на 1 страницу
               </button>
-            ) : (
-              <></>
-            )}
+            ) : null}
             <div className={styles["api-content"]}>
               {users?.length !== 0 ? (
                 <div className={styles["buttons-with-users"]}>
@@ -96,9 +94,7 @@ function App() {
                       >
                         Назад по пользователям
                       </button>
-                    ) : (
-                      <></>
-                    )}
+                    ) : null}
 
                     {pageNumber < users?.length - 1 ? (
                       <button
@@ -109,16 +105,12 @@ function App() {
                       >
                         Дальше
                       </button>
-                    ) : (
-                      <></>
-                    )}
+                    ) : null}
                   </div>
 
                   <AllUsers users={users} />
                 </div>
-              ) : (
-                <></>
-              )}
+              ) : null}
             </div>
           </div>
           <div className={styles["copy"]}>© Api GitHub</div>

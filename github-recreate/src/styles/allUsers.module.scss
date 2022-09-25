@@ -23,6 +23,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
   button {
     all: unset;
     text-shadow: 0 0 15px #817355;
@@ -38,7 +39,6 @@
 }
 .container button:hover {
   text-shadow: 0 0 15px #d8bf8a;
-
 }
 
 .container-of-repositories {
