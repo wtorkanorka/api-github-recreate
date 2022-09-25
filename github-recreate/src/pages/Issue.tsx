@@ -49,14 +49,7 @@ export function Issue(props: any) {
               }}
             >
               <p>{i.title}</p>
-              <p
-                style={{
-                  display: visible ? "flex" : "none",
-                  justifyContent: "center",
-                }}
-              >
-                {i.body}
-              </p>
+              <p>{i.body}</p>
             </button>
           );
         })

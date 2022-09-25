@@ -23,6 +23,22 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  button {
+    all: unset;
+    text-shadow: 0 0 15px #817355;
+    border: 1px solid #776c54;
+    border-radius: 20px;
+    padding: 10px 10px;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+  }
+}
+.container button:hover {
+  text-shadow: 0 0 15px #d8bf8a;
+
 }
 
 .container-of-repositories {
@@ -38,5 +54,4 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 50px;
-  
 }

@@ -5,15 +5,20 @@ const defaultErrorResponse = {
 };
 
 const useRequest = async (path: string) => {
+  const [loading, setLoading] = useState(false);
   try {
+    setLoading(true);
     const res = await fetch(`http://api.github.com/${path}`);
     const data = res.json();
-
+    setLoading(false);
     return data;
   } catch (error) {
     console.log(`useRequest error: `, error);
     return defaultErrorResponse;
   }
+};
+export const loadingState = {
+  // arg0: loading,
 };
 export const Api = {
   async getUsers(
