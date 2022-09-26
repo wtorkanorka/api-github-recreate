@@ -17,9 +17,7 @@ const useRequest = async (path: string) => {
     return defaultErrorResponse;
   }
 };
-export const loadingState = {
-  // arg0: loading,
-};
+
 export const Api = {
   async getUsers(
     users: any,
@@ -54,11 +52,11 @@ export const Api = {
   async getIssues(
     login: string,
     repos: string,
-    setIssues: any,
+    setIssues: any
     // issues: [],
 
-    setRepos: any,
-    setLogin: any
+    // setRepos: any,
+    // setLogin: any
   ) {
     const issue = await useRequest(
       // `repos/${login}/${repos}/issues${indexIssue > 0 ? "/" + indexIssue : ""}`

@@ -16,9 +16,10 @@ export function Repos(props: any) {
   const [loginIssue, setLoginIssue] = useState("");
   const [repos, setRepos] = useState("");
   console.log(props.repos, "props repos");
+
   return (
     <div className={styles["container"]}>
-      <p className={styles['repo-paragraph']}>репозитории: {props.login}</p>
+      <p className={styles["repo-paragraph"]}>репозитории: {props.login}</p>
 
       <div className={styles["repositories"]}>
         {props?.repos?.map((i: Issue, index: number) => {
@@ -33,7 +34,9 @@ export function Repos(props: any) {
               }}
             >
               {/* <Link to={"/" + i.name + "/issues"}> */}
-              <p className={styles['repo-paragraph']}>Название репозитория: {i.name}</p>
+              <p className={styles["repo-paragraph"]}>
+                Название репозитория: {i.name}
+              </p>
               {/* </Link> */}
               <p>Дата создания: {i.created_at}</p>
               <p>Дата обновления: {i.updated_at}</p>

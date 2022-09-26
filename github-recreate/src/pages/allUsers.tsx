@@ -22,6 +22,7 @@ export function AllUsers(props: any) {
       return;
     } else {
       setLoading(true);
+
       Api.getRepos(
         repositories,
         setRepositories,
@@ -71,9 +72,7 @@ export function AllUsers(props: any) {
             >
               Перейти на 1-ю страницу по репозиториям
             </button>
-          ) : (
-            null
-          )}
+          ) : null}
           {repositories.length !== 0 ? (
             <div className={styles["container-of-repositories"]}>
               <div className={styles["container-for-buttons"]}>
@@ -85,9 +84,7 @@ export function AllUsers(props: any) {
                   >
                     Назад
                   </button>
-                ) : (
-                  null
-                )}
+                ) : null}
 
                 {pageNumberForRepos < repositories?.length - 1 ? (
                   <button
