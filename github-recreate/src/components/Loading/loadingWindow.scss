@@ -1,13 +1,15 @@
 .loading-window {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  backdrop-filter: blur(13px);
-  flex-direction: column;
-  color: black;
-  top: 0;
-  left: 0;
-  text-align: center;
-  justify-content: center;
-  display: flex;
+  position: "fixed";
+  width: "100vw";
+  height: "100vh";
+  backdrop-filter: "blur(13px)";
+  flex-direction: "column";
+  color: "white";
+  top: "0";
+  left: "0";
+  bottom: "0";
+  text-align: "center";
+  justify-content: "center";
+  display: "flex";
+  z-index: "1000";
 }

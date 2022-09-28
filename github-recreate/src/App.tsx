@@ -1,7 +1,7 @@
 import styles from "./App.module.scss";
 // import { Api } from "./request/makeRequest";
 import { makeRequest } from "./request/makeRequest";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 
 import { AllUsers } from "./components/AllUsers/AllUsers";
@@ -25,9 +25,21 @@ function App() {
       return;
     } else {
       // Api.getUsers(login, setUsers, pageNumber, setPerRequest);
+      // console.log(
+      //   makeRequest.getUsers(login, pageNumber),
+      //   "ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASD"
+      // );
+      // console.log(
+      //   makeRequest(
+      //     `https://api.github.com/search/users?q=${users}&page=${pageNumber}&per_page=10`
+      //   ),
+      //   "123123123"
+      // );
       console.log(
-        makeRequest.getUsers(login, pageNumber),
-        "ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASD"
+        makeRequest(
+          `https://api.github.com/search/users?q=${users}&page=${pageNumber}&per_page=10`
+        ).Api,
+        "12123123213"
       );
     }
   }, [login, pageNumber]);
