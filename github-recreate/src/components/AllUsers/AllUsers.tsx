@@ -1,9 +1,9 @@
-import { Repos } from "./Repos";
-import { Api } from "../request/useRequest";
+import { Repos } from "../Repos/Repos";
+// import { Api } from "../../request/makeRequest";
 import { useEffect, useState } from "react";
-import styles from "../styles/allUsers.module.scss";
+import styles from "./allUsers.module.scss";
 import { Routes, Route, Link } from "react-router-dom";
-import { Loading } from "../pages/Loading";
+import { Loading } from "../Loading/Loading";
 
 interface User {
   html_url: string;
@@ -52,12 +52,10 @@ export function AllUsers(props: any) {
                   console.log(i.login, "LoginAllUsers");
                 }}
               >
-                {/* <Link to={"/" + i.login}> */}
                 <a href={`${i.html_url}`}>
                   <img src={i.avatar_url} alt="Аватар пользователя" />
                 </a>
                 <p>{i.login}</p>
-                {/* </Link> */}
               </button>
             );
           })}
@@ -96,17 +94,10 @@ export function AllUsers(props: any) {
                   </button>
                 ) : null}
               </div>
-              {/* <Routes>
-                <Route
-                  path="/:login/*"
-                  element={<Repos repos={repositories} login={loginForRepos} />}
-                />
-              </Routes> */}
+
               <Repos repos={repositories} login={loginForRepos} />
             </div>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
       </div>
     </>

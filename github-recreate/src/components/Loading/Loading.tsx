@@ -1,13 +1,10 @@
-import styles from "../styles/loadingWindow.scss";
+import styles from "./loadingWindow.scss";
 import React from "react";
 export function Loading() {
   return (
-    // <div className={styles['loading-window']}>
-    //   <h2>Loading...</h2>
-    // </div>
     <div
       style={{
-        position: "absolute",
+        position: "fixed",
         width: "100vw",
         height: "100vh",
         backdropFilter: "blur(13px)",
@@ -15,6 +12,7 @@ export function Loading() {
         color: "white",
         top: "0",
         left: "0",
+        bottom: "0",
         textAlign: "center",
         justifyContent: "center",
         display: "flex",

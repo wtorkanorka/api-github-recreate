@@ -1,4 +1,4 @@
-@import url("../reset/reset.css");
+@import url("./reset/reset.scss");
 :root {
   --index: calc(1vw + 1vh);
   --text: e7e7e0;
@@ -84,7 +84,7 @@ form input {
   z-index: 100;
   width: 100%;
   height: calc(var(--index) * 10);
-  background-image: url("../assets/ground.png");
+  background-image: url("./assets/ground.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -110,19 +110,19 @@ form input {
   z-index: 2;
 }
 .base {
-  background-image: url("../assets/layer-base.png");
+  background-image: url("./assets/layer-base.png");
   transform: translate3d(0, calc(var(--scrollTop) / 1.6), 0);
   will-change: tranform;
   z-index: 0;
 }
 .middle {
-  background-image: url("../assets/layer-middle.png");
+  background-image: url("./assets/layer-middle.png");
   transform: translate3d(0, calc(var(--scrollTop) / 2.5), 0);
   will-change: tranform;
 }
 
 .front {
-  background-image: url("../assets/layer-front.png");
+  background-image: url("./assets/layer-front.png");
   transform: translate3d(0, calc(var(--scrollTop) / 5.7), 0);
   will-change: tranform;
 }
@@ -142,16 +142,14 @@ form input {
 .title {
   font-size: calc(var(--index) * 2.5);
   letter-spacing: calc(var(--index) / 2.25);
- 
 }
 .caption {
   font-size: calc(var(--index) / 1.175);
   letter-spacing: calc(var(--index) / 3.5);
   margin-top: calc(var(--index) * -1);
- 
 }
 .main-article {
-  background-image: url("../assets/dungeon.jpg");
+  background-image: url("./assets/dungeon.jpg");
   min-height: 100vh;
   background-size: cover;
   background-position: center;

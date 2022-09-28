@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../styles/repo.module.scss";
-import { Issue } from "./Issue";
+import styles from "./repo.module.scss";
+import { Issue } from "../Issue/Issue";
 import { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import { Loading } from "./Loading";
+import { Loading } from "../Loading/Loading";
 interface Issue {
   name: string;
   created_at: string;
@@ -33,11 +33,10 @@ export function Repos(props: any) {
                 setRepos(i.name);
               }}
             >
-              {/* <Link to={"/" + i.name + "/issues"}> */}
               <p className={styles["repo-paragraph"]}>
                 Название репозитория: {i.name}
               </p>
-              {/* </Link> */}
+
               <p>Дата создания: {i.created_at}</p>
               <p>Дата обновления: {i.updated_at}</p>
               <p>id: {i.id}</p>
@@ -47,17 +46,8 @@ export function Repos(props: any) {
         })}
       </div>
       {loginIssue !== "" && repos !== "" ? (
-        // <Routes>
-        //   <Route
-        //     path="*/:login/issues"
-        //     element={
         <Issue login={loginIssue} repos={repos} />
-      ) : (
-        //   }
-        //   />
-        // </Routes>
-        <></>
-      )}
+      ) : null}
     </div>
   );
 }

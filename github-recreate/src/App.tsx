@@ -1,13 +1,13 @@
-import styles from "./styles/App.module.scss";
-import { Api } from "./request/useRequest";
+import styles from "./App.module.scss";
+// import { Api } from "./request/makeRequest";
+import { makeRequest } from "./request/makeRequest";
 import { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
-// import { User } from "./pages/User";
-import { AllUsers } from "./pages/AllUsers";
-import { Repos } from "./pages/Repos";
-import { Loading } from "./pages/Loading";
+
+import { AllUsers } from "./components/AllUsers/AllUsers";
+import { Repos } from "./components/Repos/Repos";
+import { Loading } from "./components/Loading/Loading";
 import cx from "classnames";
-// import { loadingState } from "./request/useRequest";
 
 function App() {
   const [users, setUsers] = useState<[]>([]);
@@ -15,8 +15,7 @@ function App() {
   const [pageNumber, setPageNumber] = useState(1);
   const [perRequest, setPerRequest] = useState(0);
   const [loading, setLoading] = useState(false);
-  // const [component, setComponent] = useState(<Repos />);
-  // console.log(loadingState, 'LAODING STATE')
+
   useEffect(() => {
     setPageNumber(1);
   }, []);
@@ -25,7 +24,11 @@ function App() {
     if (login === "") {
       return;
     } else {
-      Api.getUsers(login, setUsers, pageNumber, setPerRequest);
+      // Api.getUsers(login, setUsers, pageNumber, setPerRequest);
+      console.log(
+        makeRequest.getUsers(login, pageNumber),
+        "ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASD"
+      );
     }
   }, [login, pageNumber]);
   console.log(perRequest, "perRequest");
@@ -49,6 +52,7 @@ function App() {
 
       <article className={styles["main-article"]}>
         {loading ? <Loading /> : null}
+
         <div className={styles["main-article-content"]}>
           <div className={styles["form-position"]}>
             <form
@@ -59,18 +63,11 @@ function App() {
                   setLoading(false);
                 }, 1000);
                 setLogin(e.target.userName.value);
-                setPageNumber(Number(e.target.selectPageNumber.value) + 1);
+                // setPageNumber(Number(e.target.selectPageNumber.value) + 1);
               }}
             >
               <input type="text" placeholder="user name" name="userName" />
               <input type="submit" value="Отправить" />
-              {/* <input
-                type="number"
-                name="selectPageNumber"
-                placeholder="Введи номер страницы"
-                max={perRequest / 10}
-                min="1"
-              /> */}
             </form>
             <p>Всего пользователей: {perRequest}</p>
             <p>Всего страниц: {Math.ceil(perRequest / 10)}</p>
