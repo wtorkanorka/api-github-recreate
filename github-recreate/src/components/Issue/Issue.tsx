@@ -36,7 +36,6 @@ export function Issue(props: any) {
     <>
       {loading ? <Loading /> : null}
       <div className={styles["issues"]}>
-        {/* {loading ? <Loading /> : null} */}
         {login !== "" && repos !== ""
           ? issues?.map((i: Issue, index) => {
               return (

@@ -63,7 +63,6 @@ function App() {
                   setLoading(false);
                 }, 1000);
                 setLogin(e.target.userName.value);
-                // setPageNumber(Number(e.target.selectPageNumber.value) + 1);
               }}
             >
               <input type="text" placeholder="user name" name="userName" />
