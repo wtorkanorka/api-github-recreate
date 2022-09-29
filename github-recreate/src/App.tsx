@@ -3,7 +3,7 @@ import styles from "./App.module.scss";
 import { makeRequest } from "./request/makeRequest";
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
-
+import useSWR from "swr";
 import { AllUsers } from "./components/AllUsers/AllUsers";
 import { Repos } from "./components/Repos/Repos";
 import { Loading } from "./components/Loading/Loading";
@@ -11,7 +11,7 @@ import cx from "classnames";
 
 function App() {
   const [users, setUsers] = useState<[]>([]);
-  const [login, setLogin] = useState<string>("");
+  const [login, setLogin] = useState<string>("wtorkanorka");
   const [pageNumber, setPageNumber] = useState(1);
   const [perRequest, setPerRequest] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -19,30 +19,15 @@ function App() {
   useEffect(() => {
     setPageNumber(1);
   }, []);
-  useEffect(() => {
-    console.log(pageNumber, "Page number");
-    if (login === "") {
-      return;
-    } else {
-      // Api.getUsers(login, setUsers, pageNumber, setPerRequest);
-      // console.log(
-      //   makeRequest.getUsers(login, pageNumber),
-      //   "ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASD"
-      // );
-      // console.log(
-      //   makeRequest(
-      //     `https://api.github.com/search/users?q=${users}&page=${pageNumber}&per_page=10`
-      //   ),
-      //   "123123123"
-      // );
-      console.log(
-        makeRequest(
-          `https://api.github.com/search/users?q=${users}&page=${pageNumber}&per_page=10`
-        ).Api,
-        "12123123213"
-      );
-    }
-  }, [login, pageNumber]);
+
+  console.log(
+    makeRequest(
+      `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`
+    ),
+
+    "12123123213"
+  );
+
   console.log(perRequest, "perRequest");
   console.log(users, "users app");
   window.addEventListener("scroll", (e) => {
@@ -116,7 +101,11 @@ function App() {
                     ) : null}
                   </div>
 
-                  <AllUsers users={users} />
+                  <AllUsers
+                    users={makeRequest(
+                      `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`
+                    )}
+                  />
                 </div>
               ) : null}
             </div>

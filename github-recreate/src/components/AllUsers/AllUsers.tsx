@@ -23,12 +23,12 @@ export function AllUsers(props: any) {
     } else {
       setLoading(true);
 
-      Api.getRepos(
-        repositories,
-        setRepositories,
-        loginForRepos,
-        pageNumberForRepos
-      );
+      // Api.getRepos(
+      //   repositories,
+      //   setRepositories,
+      //   loginForRepos,
+      //   pageNumberForRepos
+      // );
       setTimeout(() => {
         setLoading(false);
       }, 1000);

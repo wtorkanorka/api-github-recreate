@@ -1,32 +1,26 @@
 import useSWR from "swr";
 import React, { useState, useEffect } from "react";
+import { Loading } from "../components/Loading/Loading";
 
-export const makeRequest = (props: any) => {
-  // const [url, setUrl] = useState("");
-  // const [dataSWR, setDataSWR] = useState(null);
-  // const [loading, setLoading] = useState(false);
+export const makeRequest = (url: string) => {
   const getUsers = async (url: string) => {
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      const error = new Error("An error occurred while fetching the data.");
+
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    const data = await res.json();
+    return data.items;
   };
 
-  const { data, error } = useSWR(props.url, getUsers);
+  const { data, error } = useSWR(url, getUsers);
   if (error) {
     console.error(error);
   }
-  // setDataSWR(data);
-  // const Api = {
-  // async function getUsers(users: string, pageNumber: number) {
-  //   setUrl(`search/users?q=${users}&page=${pageNumber}&per_page=10`);
-  //   if (dataSWR !== null) {
-  //     return dataSWR;
-  //   } else {
-  //     return;
-  //   }
-  // }
-  // };
-  // return Api;
 
   return data;
 };
