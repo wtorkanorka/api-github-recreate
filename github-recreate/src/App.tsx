@@ -1,5 +1,5 @@
 import styles from "./App.module.scss";
-// import { Api } from "./request/makeRequest";
+
 import { makeRequest } from "./request/makeRequest";
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
@@ -20,19 +20,14 @@ function App() {
     setPageNumber(1);
   }, []);
 
-  console.log(
-    makeRequest(
-      `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`
-    ),
-
-    "12123123213"
-  );
-
-  console.log(perRequest, "perRequest");
-  console.log(users, "users app");
   window.addEventListener("scroll", (e) => {
     document.body.style.cssText = `--scrollTop: ${window.scrollY}px`;
   });
+
+  const arr = makeRequest(
+    `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`
+  );
+  console.log(arr);
   return (
     <>
       <header className={styles["main-header"]}>
@@ -101,11 +96,7 @@ function App() {
                     ) : null}
                   </div>
 
-                  <AllUsers
-                    users={makeRequest(
-                      `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`
-                    )}
-                  />
+                  {arr.length !== 0 ? <AllUsers users={arr} /> : null}
                 </div>
               ) : null}
             </div>
