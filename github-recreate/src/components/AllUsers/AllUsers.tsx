@@ -1,9 +1,10 @@
 import { Repos } from "../Repos/Repos";
-// import { Api } from "../../request/makeRequest";
+
 import { useEffect, useState } from "react";
 import styles from "./allUsers.module.scss";
-import { Routes, Route, Link } from "react-router-dom";
+
 import { Loading } from "../Loading/Loading";
+import useSWR from "swr";
 
 interface User {
   html_url: string;
@@ -15,30 +16,32 @@ export function AllUsers(props: any) {
   const [loginForRepos, setLoginForRepos] = useState("");
   const [repositories, setRepositories] = useState([]);
   const [pageNumberForRepos, setPageNumberForRepos] = useState(1);
-  const [loading, setLoading] = useState(false);
-  console.log(props.users, "props allusers");
-  useEffect(() => {
-    if (loginForRepos === "") {
-      return;
-    } else {
-      setLoading(true);
 
-      // Api.getRepos(
-      //   repositories,
-      //   setRepositories,
-      //   loginForRepos,
-      //   pageNumberForRepos
-      // );
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-      console.log(loading);
+  const getRepos = async (url: string) => {
+    if (loginForRepos == "") {
+      return;
     }
-  }, [loginForRepos, pageNumberForRepos]);
-  console.log(repositories);
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      const error = new Error("An error occurred while fetching the data.");
+
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    const data = await res.json();
+    setRepositories(data);
+    return data;
+  };
+
+  const { data, error, isLoading } = useSWR(
+    `https://api.github.com/users/${loginForRepos}/repos?page=${pageNumberForRepos}&per_page=5`,
+    getRepos
+  );
   return (
     <>
-      {loading ? <Loading /> : null}
+      {isLoading ? <Loading /> : null}
 
       <div className={styles["container"]}>
         <div className={styles["container-for-buttons"]}>
@@ -62,7 +65,7 @@ export function AllUsers(props: any) {
         </div>
 
         <div>
-          {repositories?.length == 0 && loginForRepos !== "" ? (
+          {repositories.length == 0 && loginForRepos !== "" ? (
             <button
               onClick={() => {
                 setPageNumberForRepos(1);
@@ -71,7 +74,7 @@ export function AllUsers(props: any) {
               Перейти на 1-ю страницу по репозиториям
             </button>
           ) : null}
-          {repositories.length !== 0 ? (
+          {repositories?.length !== 0 ? (
             <div className={styles["container-of-repositories"]}>
               <div className={styles["container-for-buttons"]}>
                 {pageNumberForRepos !== 1 ? (

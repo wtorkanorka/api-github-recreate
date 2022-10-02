@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import { Api } from "../../request/makeRequest";
+
 import styles from "./issue.module.scss";
 import { Loading } from "../Loading/Loading";
-
+import useSWR from "swr";
 interface Issue {
   title: string;
   body: string;
@@ -14,27 +14,36 @@ export function Issue(props: any) {
   const [indexIssue, setIndexIssue] = useState(0);
   const [issues, setIssues] = useState([]);
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  console.log(props, "ПРОПСЫ В issue");
   useEffect(() => {
     setLogin(props.login);
     setRepos(props.repos);
   });
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    login !== "" && repos !== ""
-      ? Api.getIssues(login, repos, setIssues)
-      : null;
-  }, [login, repos, indexIssue]);
+
+  const getIssue = async (url: string) => {
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      const error = new Error("An error occurred while fetching the data.");
+
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    const data = await res.json();
+    setIssues(data);
+    return data;
+  };
+
+  const { data, error, isLoading } = useSWR(
+    `https://api.github.com/repos/${props.login}/${props.repos}/issues`,
+    getIssue
+  );
   console.log(issues, "Выданные иссушку");
 
   return (
     <>
-      {loading ? <Loading /> : null}
+      {isLoading ? <Loading /> : null}
       <div className={styles["issues"]}>
         {login !== "" && repos !== ""
           ? issues?.map((i: Issue, index) => {

@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./repo.module.scss";
 import { Issue } from "../Issue/Issue";
 import { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import { Loading } from "../Loading/Loading";
+
 interface Issue {
   name: string;
   created_at: string;

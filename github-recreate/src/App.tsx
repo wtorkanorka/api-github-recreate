@@ -1,8 +1,7 @@
 import styles from "./App.module.scss";
 
-import { makeRequest } from "./request/makeRequest";
 import React, { useState, useEffect } from "react";
-import { Link, Routes, Route } from "react-router-dom";
+
 import useSWR from "swr";
 import { AllUsers } from "./components/AllUsers/AllUsers";
 import { Repos } from "./components/Repos/Repos";
@@ -11,7 +10,7 @@ import cx from "classnames";
 
 function App() {
   const [users, setUsers] = useState<[]>([]);
-  const [login, setLogin] = useState<string>("wtorkanorka");
+  const [login, setLogin] = useState<string>("");
   const [pageNumber, setPageNumber] = useState(1);
   const [perRequest, setPerRequest] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -24,10 +23,32 @@ function App() {
     document.body.style.cssText = `--scrollTop: ${window.scrollY}px`;
   });
 
-  const arr = makeRequest(
-    `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`
+  const getUsers = async (url: string) => {
+    if (login === "") {
+      return;
+    }
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      const error = new Error("An error occurred while fetching the data.");
+
+      error.info = await res.json();
+      error.status = res.status;
+      throw error;
+    }
+    const data = await res.json();
+    setUsers(data.items);
+    return data.items;
+  };
+
+  const { data, error, isLoading } = useSWR(
+    `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`,
+    getUsers
   );
-  console.log(arr);
+  if (error) {
+    console.error(error);
+  }
+  console.log(data);
   return (
     <>
       <header className={styles["main-header"]}>
@@ -43,7 +64,7 @@ function App() {
       </header>
 
       <article className={styles["main-article"]}>
-        {loading ? <Loading /> : null}
+        {isLoading ? <Loading /> : null}
 
         <div className={styles["main-article-content"]}>
           <div className={styles["form-position"]}>
@@ -96,7 +117,7 @@ function App() {
                     ) : null}
                   </div>
 
-                  {arr.length !== 0 ? <AllUsers users={arr} /> : null}
+                  {login !== "" ? <AllUsers users={data} /> : null}
                 </div>
               ) : null}
             </div>
