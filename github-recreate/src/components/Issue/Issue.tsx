@@ -11,9 +11,6 @@ interface Issue {
 export function Issue(props: any) {
   const [login, setLogin] = useState("");
   const [repos, setRepos] = useState("");
-  const [indexIssue, setIndexIssue] = useState(0);
-  const [issues, setIssues] = useState([]);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setLogin(props.login);
@@ -31,34 +28,25 @@ export function Issue(props: any) {
       throw error;
     }
     const data = await res.json();
-    setIssues(data);
+
     return data;
   };
 
-  const { data, error, isLoading } = useSWR(
+  const { data, error } = useSWR(
     `https://api.github.com/repos/${props.login}/${props.repos}/issues`,
     getIssue
   );
-  console.log(issues, "Выданные иссушку");
-
+  if (error) {
+    throw new Error(error);
+  }
   return (
     <>
-      {isLoading ? <Loading /> : null}
+      {!data ? <Loading /> : null}
       <div className={styles["issues"]}>
         {login !== "" && repos !== ""
-          ? issues?.map((i: Issue, index) => {
+          ? data?.map((i: Issue, index: number) => {
               return (
-                <button
-                  key={index}
-                  onClick={() => {
-                    // setIndexIssue(index + 1);
-                    if (visible) {
-                      setVisible(false);
-                    } else {
-                      setVisible(true);
-                    }
-                  }}
-                >
+                <button key={index}>
                   <p>{i.title}</p>
                   <p>{i.body}</p>
                 </button>

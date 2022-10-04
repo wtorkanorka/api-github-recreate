@@ -1,8 +1,6 @@
 import { Repos } from "../Repos/Repos";
-
 import { useEffect, useState } from "react";
 import styles from "./allUsers.module.scss";
-
 import { Loading } from "../Loading/Loading";
 import useSWR from "swr";
 
@@ -14,34 +12,34 @@ interface User {
 
 export function AllUsers(props: any) {
   const [loginForRepos, setLoginForRepos] = useState("");
-  const [repositories, setRepositories] = useState([]);
   const [pageNumberForRepos, setPageNumberForRepos] = useState(1);
-
   const getRepos = async (url: string) => {
     if (loginForRepos == "") {
       return;
     }
     const res = await fetch(url);
-
     if (!res.ok) {
       const error = new Error("An error occurred while fetching the data.");
-
       error.info = await res.json();
       error.status = res.status;
       throw error;
     }
     const data = await res.json();
-    setRepositories(data);
     return data;
   };
 
-  const { data, error, isLoading } = useSWR(
+  const { data, error } = useSWR(
     `https://api.github.com/users/${loginForRepos}/repos?page=${pageNumberForRepos}&per_page=5`,
     getRepos
   );
+
+  if (error) {
+    throw new Error(error);
+  }
+
   return (
     <>
-      {isLoading ? <Loading /> : null}
+      {!data && data !== undefined ? <Loading /> : null}
 
       <div className={styles["container"]}>
         <div className={styles["container-for-buttons"]}>
@@ -56,7 +54,12 @@ export function AllUsers(props: any) {
                 }}
               >
                 <a href={`${i.html_url}`}>
-                  <img src={i.avatar_url} alt="Аватар пользователя" />
+                  <img
+                    src={i.avatar_url}
+                    alt="Аватар пользователя"
+                    title={`Перейти на githubпользователя: ${i.login}`}
+                    className={styles["avatar"]}
+                  />
                 </a>
                 <p>{i.login}</p>
               </button>
@@ -65,7 +68,7 @@ export function AllUsers(props: any) {
         </div>
 
         <div>
-          {repositories.length == 0 && loginForRepos !== "" ? (
+          {data?.length == 0 && loginForRepos !== "" ? (
             <button
               onClick={() => {
                 setPageNumberForRepos(1);
@@ -74,7 +77,7 @@ export function AllUsers(props: any) {
               Перейти на 1-ю страницу по репозиториям
             </button>
           ) : null}
-          {repositories?.length !== 0 ? (
+          {data?.length !== 0 ? (
             <div className={styles["container-of-repositories"]}>
               <div className={styles["container-for-buttons"]}>
                 {pageNumberForRepos !== 1 ? (
@@ -87,7 +90,7 @@ export function AllUsers(props: any) {
                   </button>
                 ) : null}
 
-                {pageNumberForRepos < repositories?.length - 1 ? (
+                {pageNumberForRepos < data?.length - 1 ? (
                   <button
                     onClick={() => {
                       setPageNumberForRepos(() => pageNumberForRepos + 1);
@@ -98,7 +101,7 @@ export function AllUsers(props: any) {
                 ) : null}
               </div>
 
-              <Repos repos={repositories} login={loginForRepos} />
+              <Repos repos={data} login={loginForRepos} />
             </div>
           ) : null}
         </div>

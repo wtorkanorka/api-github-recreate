@@ -1,7 +1,5 @@
 import styles from "./App.module.scss";
-
 import React, { useState, useEffect } from "react";
-
 import useSWR from "swr";
 import { AllUsers } from "./components/AllUsers/AllUsers";
 import { Repos } from "./components/Repos/Repos";
@@ -9,11 +7,9 @@ import { Loading } from "./components/Loading/Loading";
 import cx from "classnames";
 
 function App() {
-  const [users, setUsers] = useState<[]>([]);
-  const [login, setLogin] = useState<string>("");
+  const [login, setLogin] = useState<string>("wtorkanorka");
   const [pageNumber, setPageNumber] = useState(1);
   const [perRequest, setPerRequest] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setPageNumber(1);
@@ -28,27 +24,24 @@ function App() {
       return;
     }
     const res = await fetch(url);
-
     if (!res.ok) {
       const error = new Error("An error occurred while fetching the data.");
-
       error.info = await res.json();
       error.status = res.status;
       throw error;
     }
     const data = await res.json();
-    setUsers(data.items);
     return data.items;
   };
 
-  const { data, error, isLoading } = useSWR(
+  const { data, error } = useSWR(
     `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`,
     getUsers
   );
   if (error) {
-    console.error(error);
+    throw new Error(error);
   }
-  console.log(data);
+
   return (
     <>
       <header className={styles["main-header"]}>
@@ -64,17 +57,13 @@ function App() {
       </header>
 
       <article className={styles["main-article"]}>
-        {isLoading ? <Loading /> : null}
+        {!data ? <Loading /> : null}
 
         <div className={styles["main-article-content"]}>
           <div className={styles["form-position"]}>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                setLoading(true);
-                setTimeout(() => {
-                  setLoading(false);
-                }, 1000);
                 setLogin(e.target.userName.value);
               }}
             >
@@ -85,13 +74,13 @@ function App() {
             <p>Всего страниц: {Math.ceil(perRequest / 10)}</p>
           </div>
           <div className={styles["container"]}>
-            {users?.length == 0 && login !== "" ? (
+            {data?.length == 0 && login !== "" ? (
               <button onClick={() => setPageNumber(1)}>
                 Превышен запрос на страницы, вернуться на 1 страницу
               </button>
             ) : null}
             <div className={styles["api-content"]}>
-              {users?.length !== 0 ? (
+              {data?.length !== 0 ? (
                 <div className={styles["buttons-with-users"]}>
                   <div className={styles["button-position"]}>
                     {pageNumber > 1 ? (
@@ -105,7 +94,7 @@ function App() {
                       </button>
                     ) : null}
 
-                    {pageNumber < users?.length - 1 ? (
+                    {pageNumber < data?.length - 1 ? (
                       <button
                         className={styles["next-and-perv"]}
                         onClick={() => {

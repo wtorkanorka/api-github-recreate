@@ -14,7 +14,6 @@ interface Issue {
 export function Repos(props: any) {
   const [loginIssue, setLoginIssue] = useState("");
   const [repos, setRepos] = useState("");
-  console.log(props.repos, "props repos");
 
   return (
     <div className={styles["container"]}>

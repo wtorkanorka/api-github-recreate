@@ -10,8 +10,7 @@ export function Loading() {
         backdropFilter: "blur(13px)",
         flexDirection: "column",
         color: "white",
-        top: "0",
-        left: "0",
+
         bottom: "0",
         textAlign: "center",
         justifyContent: "center",
