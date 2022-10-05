@@ -12,6 +12,7 @@ interface User {
 
 export function AllUsers(props: any) {
   const [loginForRepos, setLoginForRepos] = useState("");
+  const [visible, setVisible] = useState(false);
   const [pageNumberForRepos, setPageNumberForRepos] = useState(1);
   const getRepos = async (url: string) => {
     if (loginForRepos == "") {
@@ -34,7 +35,7 @@ export function AllUsers(props: any) {
   );
 
   if (error) {
-    throw new Error(error);
+    throw new Error("An error occurred while fetching the data.");
   }
 
   return (
@@ -43,32 +44,34 @@ export function AllUsers(props: any) {
 
       <div className={styles["container"]}>
         <div className={styles["container-for-buttons"]}>
-          {props.users?.map((i: User, index: number) => {
-            return (
-              <button
-                key={index}
-                className={styles["user-profile"]}
-                onClick={() => {
-                  setLoginForRepos(i.login);
-                  console.log(i.login, "LoginAllUsers");
-                }}
-              >
-                <a href={`${i.html_url}`}>
-                  <img
-                    src={i.avatar_url}
-                    alt="Аватар пользователя"
-                    title={`Перейти на githubпользователя: ${i.login}`}
-                    className={styles["avatar"]}
-                  />
-                </a>
-                <p>{i.login}</p>
-              </button>
-            );
-          })}
+          {!visible &&
+            props.users?.map((i: User, index: number) => {
+              return (
+                <button
+                  key={index}
+                  className={styles["user-profile"]}
+                  onClick={() => {
+                    setVisible(true);
+                    setLoginForRepos(i.login);
+                    console.log(i.login, "LoginAllUsers");
+                  }}
+                >
+                  <a href={`${i.html_url}`}>
+                    <img
+                      src={i.avatar_url}
+                      alt="Аватар пользователя"
+                      title={`Перейти на github пользователя: ${i.login}`}
+                      className={styles["avatar"]}
+                    />
+                  </a>
+                  <p>{i.login}</p>
+                </button>
+              );
+            })}
         </div>
 
         <div>
-          {data?.length == 0 && loginForRepos !== "" ? (
+          {data?.length == 0 && loginForRepos !== "" ? ( //пагинация
             <button
               onClick={() => {
                 setPageNumberForRepos(1);
@@ -80,7 +83,7 @@ export function AllUsers(props: any) {
           {data?.length !== 0 ? (
             <div className={styles["container-of-repositories"]}>
               <div className={styles["container-for-buttons"]}>
-                {pageNumberForRepos !== 1 ? (
+                {visible && pageNumberForRepos !== 1 ? (
                   <button
                     onClick={() => {
                       setPageNumberForRepos(() => pageNumberForRepos - 1);
@@ -90,7 +93,7 @@ export function AllUsers(props: any) {
                   </button>
                 ) : null}
 
-                {pageNumberForRepos < data?.length - 1 ? (
+                {visible && pageNumberForRepos < data?.length - 1 ? (
                   <button
                     onClick={() => {
                       setPageNumberForRepos(() => pageNumberForRepos + 1);
@@ -101,7 +104,17 @@ export function AllUsers(props: any) {
                 ) : null}
               </div>
 
-              <Repos repos={data} login={loginForRepos} />
+              {visible && (
+                <div
+                  style={{
+                    border: "1px solid #776c54",
+                    justifyContent: "left",
+                    borderRadius: "20px",
+                  }}
+                >
+                  <Repos repos={data} login={loginForRepos} />
+                </div>
+              )}
             </div>
           ) : null}
         </div>

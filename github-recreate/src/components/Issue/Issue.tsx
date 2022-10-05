@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./issue.module.scss";
 import { Loading } from "../Loading/Loading";
+import ReactMarkdown from "react-markdown";
 import useSWR from "swr";
 interface Issue {
   title: string;
@@ -9,13 +10,13 @@ interface Issue {
 }
 
 export function Issue(props: any) {
-  const [login, setLogin] = useState("");
-  const [repos, setRepos] = useState("");
+  const [login, setLogin] = useState(props.login);
+  const [repos, setRepos] = useState(props.repos);
 
-  useEffect(() => {
-    setLogin(props.login);
-    setRepos(props.repos);
-  });
+  // useEffect(() => {
+  //   setLogin(props.login);
+  //   setRepos();
+  // }, []);
 
   const getIssue = async (url: string) => {
     const res = await fetch(url);
@@ -47,8 +48,10 @@ export function Issue(props: any) {
           ? data?.map((i: Issue, index: number) => {
               return (
                 <button key={index}>
-                  <p>{i.title}</p>
-                  <p>{i.body}</p>
+                  <ReactMarkdown children={i.title} />
+                  <ReactMarkdown children={i.body} />
+                  {/* <p>{i.title}</p>
+                  <p>{i.body}</p> */}
                 </button>
               );
             })

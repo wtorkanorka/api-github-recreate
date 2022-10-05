@@ -9,7 +9,7 @@ import cx from "classnames";
 function App() {
   const [login, setLogin] = useState<string>("wtorkanorka");
   const [pageNumber, setPageNumber] = useState(1);
-  const [perRequest, setPerRequest] = useState(0);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     setPageNumber(1);
@@ -64,14 +64,13 @@ function App() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                setVisible(true);
                 setLogin(e.target.userName.value);
               }}
             >
               <input type="text" placeholder="user name" name="userName" />
               <input type="submit" value="Отправить" />
             </form>
-            <p>Всего пользователей: {perRequest}</p>
-            <p>Всего страниц: {Math.ceil(perRequest / 10)}</p>
           </div>
           <div className={styles["container"]}>
             {data?.length == 0 && login !== "" ? (
@@ -106,7 +105,7 @@ function App() {
                     ) : null}
                   </div>
 
-                  {login !== "" ? <AllUsers users={data} /> : null}
+                  {visible && <AllUsers users={data} />}
                 </div>
               ) : null}
             </div>
