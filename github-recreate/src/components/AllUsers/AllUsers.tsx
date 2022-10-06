@@ -44,30 +44,29 @@ export function AllUsers(props: any) {
 
       <div className={styles["container"]}>
         <div className={styles["container-for-buttons"]}>
-          {!visible &&
-            props.users?.map((i: User, index: number) => {
-              return (
-                <button
-                  key={index}
-                  className={styles["user-profile"]}
-                  onClick={() => {
-                    setVisible(true);
-                    setLoginForRepos(i.login);
-                    console.log(i.login, "LoginAllUsers");
-                  }}
-                >
-                  <a href={`${i.html_url}`}>
-                    <img
-                      src={i.avatar_url}
-                      alt="Аватар пользователя"
-                      title={`Перейти на github пользователя: ${i.login}`}
-                      className={styles["avatar"]}
-                    />
-                  </a>
-                  <p>{i.login}</p>
-                </button>
-              );
-            })}
+          {props.users?.map((i: User, index: number) => {
+            return (
+              <button
+                key={index}
+                className={styles["user-profile"]}
+                onClick={() => {
+                  setVisible(true);
+                  setLoginForRepos(i.login);
+                  console.log(i.login, "LoginAllUsers");
+                }}
+              >
+                <a href={`${i.html_url}`}>
+                  <img
+                    src={i.avatar_url}
+                    alt="Аватар пользователя"
+                    title={`Перейти на github пользователя: ${i.login}`}
+                    className={styles["avatar"]}
+                  />
+                </a>
+                <p>{i.login}</p>
+              </button>
+            );
+          })}
         </div>
 
         <div>
@@ -82,7 +81,7 @@ export function AllUsers(props: any) {
           ) : null}
           {data?.length !== 0 ? (
             <div className={styles["container-of-repositories"]}>
-              <div className={styles["container-for-buttons"]}>
+              {/* <div className={styles["container-for-buttons"]}>
                 {visible && pageNumberForRepos !== 1 ? (
                   <button
                     onClick={() => {
@@ -102,7 +101,7 @@ export function AllUsers(props: any) {
                     Дальше
                   </button>
                 ) : null}
-              </div>
+              </div> */}
 
               {visible && (
                 <div
@@ -112,6 +111,27 @@ export function AllUsers(props: any) {
                     borderRadius: "20px",
                   }}
                 >
+                  <div className={styles["container-for-buttons"]}>
+                    {visible && pageNumberForRepos !== 1 ? (
+                      <button
+                        onClick={() => {
+                          setPageNumberForRepos(() => pageNumberForRepos - 1);
+                        }}
+                      >
+                        Назад
+                      </button>
+                    ) : null}
+
+                    {visible && pageNumberForRepos < data?.length - 1 ? (
+                      <button
+                        onClick={() => {
+                          setPageNumberForRepos(() => pageNumberForRepos + 1);
+                        }}
+                      >
+                        Дальше
+                      </button>
+                    ) : null}
+                  </div>
                   <Repos repos={data} login={loginForRepos} />
                 </div>
               )}

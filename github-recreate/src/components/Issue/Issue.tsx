@@ -9,15 +9,7 @@ interface Issue {
   body: string;
 }
 
-export function Issue(props: any) {
-  const [login, setLogin] = useState(props.login);
-  const [repos, setRepos] = useState(props.repos);
-
-  // useEffect(() => {
-  //   setLogin(props.login);
-  //   setRepos();
-  // }, []);
-
+export function Issue({ login, repos }) {
   const getIssue = async (url: string) => {
     const res = await fetch(url);
 
@@ -34,7 +26,7 @@ export function Issue(props: any) {
   };
 
   const { data, error } = useSWR(
-    `https://api.github.com/repos/${props.login}/${props.repos}/issues`,
+    `https://api.github.com/repos/${login}/${repos}/issues`,
     getIssue
   );
   if (error) {
@@ -50,8 +42,6 @@ export function Issue(props: any) {
                 <button key={index}>
                   <ReactMarkdown children={i.title} />
                   <ReactMarkdown children={i.body} />
-                  {/* <p>{i.title}</p>
-                  <p>{i.body}</p> */}
                 </button>
               );
             })
