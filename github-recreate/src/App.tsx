@@ -18,6 +18,12 @@ function App() {
       document.body.style.cssText = `--scrollTop: ${window.scrollY}px`;
     });
   });
+
+  if (login == "") {
+    setLogin("wtorkanorka");
+    alert("Введи ник");
+  }
+
   return (
     <>
       <header className={styles["main-header"]}>

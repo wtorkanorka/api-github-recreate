@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { Link, useParams } from "react-router-dom";
 import { fetcher } from "../../makeRequest/makeRequest";
 import { Back } from "../Buttonback/Back";
+import ContentLoader from "react-content-loader";
 
 interface User {
   html_url: string;
@@ -27,7 +28,7 @@ export function AllUsers({ login, setLogin }: User) {
   return (
     <>
       <Back />
-      {!data ? <Loading /> : null}
+
       <div>
         {pageNumber > 1 ? (
           <button
@@ -76,11 +77,9 @@ export function AllUsers({ login, setLogin }: User) {
           })}
         </div>
 
-        <div>
-          {data?.items?.length == 0 ? (
-            <>Нет пользователей с таким ником</>
-          ) : null}
-        </div>
+        {data?.items?.length == 0 ? (
+          <p>Нет пользователей с таким ником</p>
+        ) : null}
       </div>
     </>
   );

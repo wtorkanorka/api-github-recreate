@@ -14,6 +14,7 @@ export function Form({ setLogin, login }: Form) {
     e.preventDefault();
 
     setLogin(e.target.userName.value);
+
     navigate(`/users/${login}`);
   };
 
