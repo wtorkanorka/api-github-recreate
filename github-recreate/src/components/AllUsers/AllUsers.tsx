@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import styles from "./allUsers.module.scss";
 import { Loading } from "../Loading/Loading";
 import useSWR from "swr";
+import { Link, useParams } from "react-router-dom";
+import { fetcher } from "../../makeRequest/makeRequest";
+import { Back } from "../Buttonback/Back";
 
 interface User {
   html_url: string;
@@ -10,132 +13,76 @@ interface User {
   login: string;
 }
 
-export function AllUsers(props: any) {
-  const [loginForRepos, setLoginForRepos] = useState("");
-  const [visible, setVisible] = useState(false);
-  const [pageNumberForRepos, setPageNumberForRepos] = useState(1);
-  const getRepos = async (url: string) => {
-    if (loginForRepos == "") {
-      return;
-    }
-    const res = await fetch(url);
-    if (!res.ok) {
-      const error = new Error("An error occurred while fetching the data.");
-      error.info = await res.json();
-      error.status = res.status;
-      throw error;
-    }
-    const data = await res.json();
-    return data;
-  };
+export function AllUsers({ login, setLogin }) {
+  const [pageNumber, setPageNumber] = useState(1);
 
-  const { data, error } = useSWR(
-    `https://api.github.com/users/${loginForRepos}/repos?page=${pageNumberForRepos}&per_page=5`,
-    getRepos
+  const { data, error } = useSWR<[]>(
+    `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`,
+    fetcher
   );
-
   if (error) {
-    throw new Error("An error occurred while fetching the data.");
+    throw new Error("An error occurred while fetching the data");
   }
 
   return (
     <>
-      {!data && data !== undefined ? <Loading /> : null}
-
+      <Back />
+      {!data ? <Loading /> : null}
+      <div>
+        {pageNumber > 1 ? (
+          <button
+            className={styles["next-and-perv"]}
+            onClick={() => {
+              setPageNumber(() => pageNumber - 1);
+            }}
+          >
+            Назад по пользователям
+          </button>
+        ) : null}
+        {pageNumber < data?.items?.length - 1 ? (
+          <button
+            className={styles["next-and-perv"]}
+            onClick={() => {
+              setPageNumber(() => pageNumber + 1);
+            }}
+          >
+            Дальше
+          </button>
+        ) : null}
+      </div>
       <div className={styles["container"]}>
         <div className={styles["container-for-buttons"]}>
-          {props.users?.map((i: User, index: number) => {
+          {data?.items?.map((i: User, index: number) => {
             return (
-              <button
-                key={index}
-                className={styles["user-profile"]}
-                onClick={() => {
-                  setVisible(true);
-                  setLoginForRepos(i.login);
-                  console.log(i.login, "LoginAllUsers");
-                }}
-              >
-                <a href={`${i.html_url}`}>
+              <Link to={`/repositories/${i.login}`} key={index}>
+                <button
+                  className={styles["user-profile"]}
+                  onClick={() => {
+                    setLogin(i.login);
+                    console.log(i.login, "LoginAllUsers");
+                  }}
+                >
                   <img
                     src={i.avatar_url}
                     alt="Аватар пользователя"
                     title={`Перейти на github пользователя: ${i.login}`}
                     className={styles["avatar"]}
                   />
-                </a>
-                <p>{i.login}</p>
-              </button>
+
+                  <p>{i.login}</p>
+                </button>
+              </Link>
             );
           })}
         </div>
 
         <div>
-          {data?.length == 0 && loginForRepos !== "" ? ( //пагинация
-            <button
-              onClick={() => {
-                setPageNumberForRepos(1);
-              }}
-            >
-              Перейти на 1-ю страницу по репозиториям
-            </button>
-          ) : null}
-          {data?.length !== 0 ? (
-            <div className={styles["container-of-repositories"]}>
-              {/* <div className={styles["container-for-buttons"]}>
-                {visible && pageNumberForRepos !== 1 ? (
-                  <button
-                    onClick={() => {
-                      setPageNumberForRepos(() => pageNumberForRepos - 1);
-                    }}
-                  >
-                    Назад
-                  </button>
-                ) : null}
-
-                {visible && pageNumberForRepos < data?.length - 1 ? (
-                  <button
-                    onClick={() => {
-                      setPageNumberForRepos(() => pageNumberForRepos + 1);
-                    }}
-                  >
-                    Дальше
-                  </button>
-                ) : null}
-              </div> */}
-
-              {visible && (
-                <div
-                  style={{
-                    border: "1px solid #776c54",
-                    justifyContent: "left",
-                    borderRadius: "20px",
-                  }}
-                >
-                  <div className={styles["container-for-buttons"]}>
-                    {visible && pageNumberForRepos !== 1 ? (
-                      <button
-                        onClick={() => {
-                          setPageNumberForRepos(() => pageNumberForRepos - 1);
-                        }}
-                      >
-                        Назад
-                      </button>
-                    ) : null}
-
-                    {visible && pageNumberForRepos < data?.length - 1 ? (
-                      <button
-                        onClick={() => {
-                          setPageNumberForRepos(() => pageNumberForRepos + 1);
-                        }}
-                      >
-                        Дальше
-                      </button>
-                    ) : null}
-                  </div>
-                  <Repos repos={data} login={loginForRepos} />
-                </div>
-              )}
-            </div>
+          {data?.items?.length == 0 ? (
+            <>
+              <Back />
+              <br />
+              Нет пользователей с таким ником, вернуться?
+            </>
           ) : null}
         </div>
       </div>

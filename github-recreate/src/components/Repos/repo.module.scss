@@ -1,10 +1,15 @@
-@import url("../../reset/reset.scss");
+// @import url("../../reset/reset.scss");
 
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
+}
+.paragparhs {
+  text-decoration: none;
+  color: white;
+  text-shadow: #817355;
 }
 
 .repositories {
@@ -26,4 +31,22 @@
   border: 1px solid #776c54;
   border-radius: 20px;
   padding: 10px 10px;
+}
+.container-for-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.next-and-perv {
+  all: unset;
+  text-shadow: 0 0 15px #817355;
+  border: 1px solid #776c54;
+  border-radius: 20px;
+  padding: 10px 10px;
+  align-items: center;
+
+  gap: 20px;
+  cursor: pointer;
+  margin-top: 20px;
 }

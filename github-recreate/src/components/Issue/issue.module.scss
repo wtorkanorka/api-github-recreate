@@ -1,7 +1,17 @@
-@import url("../../reset/reset.scss");
+// @import url("../../reset/reset.scss");
 
 .issues {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  button {
+    all: unset;
+    border: 1px solid #d8bf8a;
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    line-height: 20px;
+    text-align: left;
+    overflow: hidden;
+  }
 }
