@@ -53,7 +53,7 @@ function App() {
 
                   <Route
                     path="/issues/:issue"
-                    element={<Issue login={login} repos={repos} />}
+                    element={<Issue login={login} />}
                   />
                 </Routes>
               </div>

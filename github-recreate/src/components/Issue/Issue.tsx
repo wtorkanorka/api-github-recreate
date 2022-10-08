@@ -9,11 +9,14 @@ import remarkGfm from "remark-gfm";
 import { Back } from "../Buttonback/Back";
 import { useParams } from "react-router-dom";
 interface Issue {
+  login: string;
+}
+interface Content {
   title: string;
   body: string;
 }
 
-export function Issue({ login }) {
+export function Issue({ login }: Issue) {
   const { issue } = useParams();
 
   const { data, error } = useSWR<[]>(
@@ -30,7 +33,7 @@ export function Issue({ login }) {
       {data?.length !== 0 ? <Back /> : null}
       <div className={styles["issues"]}>
         {login !== "" && issue !== ""
-          ? data?.map((i: Issue, index: number) => {
+          ? data?.map((i: Content, index: number) => {
               return (
                 <button key={index}>
                   <ReactMarkdown

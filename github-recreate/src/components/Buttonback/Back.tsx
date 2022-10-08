@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./Back.module.scss";
 
 export function Back() {
-  console.log(history.length);
-
   return (
     <div className={styles["container"]}>
       <div

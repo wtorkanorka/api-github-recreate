@@ -169,7 +169,8 @@ form input {
 }
 .copy {
   position: absolute;
-  bottom: calc(var(--index) * 6);
+  // bottom: calc(var(--index) * 6);
+  bottom: 0;
   left: 44%;
   opacity: 0.45;
   font-size: calc(var(--index) * 0.75);

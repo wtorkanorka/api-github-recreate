@@ -3,7 +3,12 @@ import styles from "../../App.module.scss";
 import { useNavigate } from "react-router-dom";
 import { Back } from "../Buttonback/Back";
 
-export function Form({ setLogin, login }) {
+interface Form {
+  login: string;
+  setLogin(value: string): void;
+}
+
+export function Form({ setLogin, login }: Form) {
   const navigate = useNavigate();
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -14,7 +19,7 @@ export function Form({ setLogin, login }) {
 
   return (
     <>
-      <Back />
+      {/* <Back /> */}
       <div className={styles["form-position"]}>
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="user name" name="userName" />

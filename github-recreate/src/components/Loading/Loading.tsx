@@ -1,4 +1,4 @@
-import styles from "./loadingWindow.scss";
+import styles from "./loadingWindow.module.scss";
 import React from "react";
 export function Loading() {
   return (

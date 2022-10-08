@@ -13,7 +13,7 @@ interface User {
   login: string;
 }
 
-export function AllUsers({ login, setLogin }) {
+export function AllUsers({ login, setLogin }: User) {
   const [pageNumber, setPageNumber] = useState(1);
 
   const { data, error } = useSWR<[]>(
@@ -78,11 +78,7 @@ export function AllUsers({ login, setLogin }) {
 
         <div>
           {data?.items?.length == 0 ? (
-            <>
-              <Back />
-              <br />
-              Нет пользователей с таким ником, вернуться?
-            </>
+            <>Нет пользователей с таким ником</>
           ) : null}
         </div>
       </div>
