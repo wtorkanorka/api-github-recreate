@@ -13,8 +13,11 @@ interface User {
   avatar_url: string;
   login: string;
 }
-
-export function AllUsers({ login, setLogin }: User) {
+interface Data {
+  login: string;
+  setLogin(value: string): void;
+}
+export function AllUsers({ login, setLogin }: Data) {
   const [pageNumber, setPageNumber] = useState(1);
 
   const { data, error } = useSWR<[]>(
@@ -27,6 +30,7 @@ export function AllUsers({ login, setLogin }: User) {
 
   return (
     <>
+      {!data ? <Loading /> : null}
       <Back />
 
       <div>

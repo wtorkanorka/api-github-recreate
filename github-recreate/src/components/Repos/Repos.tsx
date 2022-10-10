@@ -15,8 +15,11 @@ interface Issue {
   id: number;
   watchers: string;
 }
-
-export function Repos({ login, setRepos }) {
+interface Data {
+  login: string;
+  setRepos(value: string): void;
+}
+export function Repos({ login, setRepos }: Data) {
   const [loginIssue, setLoginIssue] = useState("");
 
   const [pageNumberForRepos, setPageNumberForRepos] = useState(1);
@@ -32,7 +35,7 @@ export function Repos({ login, setRepos }) {
   return (
     <>
       <Back />
-      {!data ? <Loading /> : null}
+      {/* {!data ? <Loading /> : null} */}
       <div className={styles["container"]}>
         <p className={styles["repo-paragraph"]}>репозитории: {login}</p>
         <div className={styles["container-for-buttons"]}>
@@ -43,7 +46,7 @@ export function Repos({ login, setRepos }) {
                 setPageNumberForRepos(() => pageNumberForRepos - 1);
               }}
             >
-              Назад
+              назад
             </button>
           ) : null}
 
@@ -78,7 +81,7 @@ export function Repos({ login, setRepos }) {
                     <p>Дата создания: {i.created_at}</p>
                     <p>Дата обновления: {i.updated_at}</p>
                     <p>id: {i.id}</p>
-                    <p>Сейчас просматривают: {i.watchers}</p>{" "}
+                    <p>Сейчас просматривают: {i.watchers}</p>
                   </div>
                 </Link>
               </button>

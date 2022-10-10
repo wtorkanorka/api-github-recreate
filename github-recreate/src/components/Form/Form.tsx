@@ -20,7 +20,6 @@ export function Form({ setLogin, login }: Form) {
 
   return (
     <>
-      {/* <Back /> */}
       <div className={styles["form-position"]}>
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="user name" name="userName" />
