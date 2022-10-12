@@ -9,7 +9,14 @@
 .paragparhs {
   text-decoration: none;
   color: white;
-  text-shadow: #817355;
+  p {
+    text-shadow: 0 0 15px #817355;
+    line-height: 20px;
+    text-align: left;
+  }
+  border: 1px solid #776c54;
+  border-radius: 20px;
+  padding: 10px 10px;
 }
 
 .repositories {
@@ -31,12 +38,14 @@
   border: 1px solid #776c54;
   border-radius: 20px;
   padding: 10px 10px;
+  margin-bottom: 10px;
 }
 .container-for-buttons {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 10px;
 }
 .next-and-perv {
   all: unset;

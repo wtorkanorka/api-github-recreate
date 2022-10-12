@@ -17,12 +17,11 @@ function App() {
     window.addEventListener("scroll", (e) => {
       document.body.style.cssText = `--scrollTop: ${window.scrollY}px`;
     });
+    if (login == "") {
+      setLogin("wtorkanorka");
+      alert("Введи ник");
+    }
   });
-
-  if (login == "") {
-    setLogin("wtorkanorka");
-    alert("Введи ник");
-  }
 
   return (
     <>

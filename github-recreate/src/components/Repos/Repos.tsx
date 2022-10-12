@@ -7,6 +7,7 @@ import { fetcher } from "../../makeRequest/makeRequest";
 import { Link } from "react-router-dom";
 import { Loading } from "../Loading/Loading";
 import { Back } from "../Buttonback/Back";
+import { useParams } from "react-router-dom";
 
 interface Issue {
   name: string;

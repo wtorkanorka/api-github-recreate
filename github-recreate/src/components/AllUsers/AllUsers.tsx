@@ -19,7 +19,7 @@ interface Data {
 }
 export function AllUsers({ login, setLogin }: Data) {
   const [pageNumber, setPageNumber] = useState(1);
-
+  const { user } = useParams();
   const { data, error } = useSWR<[]>(
     `https://api.github.com/search/users?q=${login}&page=${pageNumber}&per_page=10`,
     fetcher
@@ -33,7 +33,7 @@ export function AllUsers({ login, setLogin }: Data) {
       {!data ? <Loading /> : null}
       <Back />
 
-      <div>
+      <div className={styles["pagination"]}>
         {pageNumber > 1 ? (
           <button
             className={styles["next-and-perv"]}
@@ -55,6 +55,7 @@ export function AllUsers({ login, setLogin }: Data) {
           </button>
         ) : null}
       </div>
+
       <div className={styles["container"]}>
         <div className={styles["container-for-buttons"]}>
           {data?.items?.map((i: User, index: number) => {

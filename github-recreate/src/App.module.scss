@@ -76,6 +76,7 @@ form input {
   background-repeat: no-repeat;
   background-position: center;
   bottom: calc(var(--index) * -5);
+  pointer-events: none;
 }
 
 .layers {

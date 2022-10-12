@@ -9,9 +9,19 @@
     border: 1px solid #d8bf8a;
     border-radius: 20px;
     padding: 20px;
-    max-width: 1200px;
+
     line-height: 20px;
     text-align: left;
     overflow: hidden;
+    word-break: break-all;
+    width: calc(100vw - 40px * 2);
+    overflow-x: auto;
+    img {
+      width: 100%;
+    }
+    a {
+      color: #d8bf8a;
+      text-decoration: none;
+    }
   }
 }
