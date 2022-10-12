@@ -8,12 +8,9 @@ import { fetcher } from "../../makeRequest/makeRequest";
 import remarkGfm from "remark-gfm";
 import { Back } from "../Buttonback/Back";
 import { useParams } from "react-router-dom";
+import { IssueText } from "../IssueText/IssueText";
 interface Issue {
   login: string;
-}
-interface Content {
-  title: string;
-  body: string;
 }
 
 export function Issue({ login }: Issue) {
@@ -30,24 +27,11 @@ export function Issue({ login }: Issue) {
   return (
     <>
       {!data ? <Loading /> : null}
+
       {data?.length !== 0 ? <Back /> : null}
       <div className={styles["issues"]}>
-        {login !== "" && issue !== ""
-          ? data?.map((i: Content, index: number) => {
-              return (
-                <button key={index}>
-                  <ReactMarkdown
-                    children={i.title}
-                    remarkPlugins={[remarkGfm]}
-                  />
-                  <ReactMarkdown
-                    children={i.body}
-                    remarkPlugins={[remarkGfm]}
-                  />
-                </button>
-              );
-            })
-          : null}
+        {login !== "" && issue !== "" ? <IssueText data={data} /> : null}
+
         {data?.length === 0 ? (
           <>
             <Back />
