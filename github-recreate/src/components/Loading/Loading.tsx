@@ -1,9 +1,6 @@
-import styles from "./loadingWindow.module.scss";
-import React from "react";
 export function Loading() {
   return (
     <div
-      // className={styles["loading-window"]}
       style={{
         position: "fixed",
         width: "100vw",

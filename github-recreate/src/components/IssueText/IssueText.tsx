@@ -3,30 +3,28 @@ import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 
-interface Content {
+import cx from "classnames";
+import styles from "./Issue.module.scss";
+
+interface data {
+  dataElem: {};
+}
+interface content {
   title: string;
   body: string;
-  data?: [];
-}
-interface Data {
-  data?: [];
 }
 
-export function IssueText({ data }: Data) {
+export function IssueText({ dataElem }: data) {
   const [visible, setVisible] = useState(false);
-
-  function test() {
-    setVisible(!visible);
-  }
-
-  return data?.map((i: Content, index: number) => {
-    return (
-      <button onClick={() => setVisible(!visible)} key={index}>
-        <ReactMarkdown children={i.title} remarkPlugins={[remarkGfm]} />
-        {visible && (
-          <ReactMarkdown children={i.body} remarkPlugins={[remarkGfm]} />
-        )}
-      </button>
-    );
-  });
+  console.log(dataElem);
+  return (
+    <button onClick={() => setVisible(!visible)}>
+      <div className={cx(visible && styles["border-title"])}>
+        <ReactMarkdown children={dataElem.title} remarkPlugins={[remarkGfm]} />
+      </div>
+      {visible && (
+        <ReactMarkdown children={dataElem.body} remarkPlugins={[remarkGfm]} />
+      )}
+    </button>
+  );
 }
