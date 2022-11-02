@@ -63,7 +63,10 @@ export function AllUsers({ login, setLogin }: Data) {
           <div className={styles["container-for-buttons"]}>
             {data?.items?.map((i: User, index: number) => {
               return (
-                <Link to={`/repositories/${i.login}`} key={index}>
+                <Link
+                  to={`/api-github-recreate/repositories/${i.login}`}
+                  key={index}
+                >
                   <button
                     className={styles["user-profile"]}
                     onClick={() => {

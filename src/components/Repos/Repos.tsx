@@ -73,7 +73,7 @@ export function Repos({ login, setRepos }: Data) {
                     setRepos(i.name);
                   }}
                 >
-                  <Link to={`/issues/${i.name}`}>
+                  <Link to={`/api-github-recreate/issues/${i.name}`}>
                     <div className={styles["paragparhs"]}>
                       <p className={styles["repo-paragraph"]}>
                         Название репозитория: {i.name}

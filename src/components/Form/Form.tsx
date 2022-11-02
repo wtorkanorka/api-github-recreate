@@ -15,7 +15,7 @@ export function Form({ setLogin, login }: Form) {
 
     setLogin(e.target.userName.value);
 
-    navigate(`/users/${login}`);
+    navigate(`/api-github-recreate/users/${login}`);
   };
 
   return (

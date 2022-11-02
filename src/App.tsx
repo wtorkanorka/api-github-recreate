@@ -41,20 +41,20 @@ function App() {
               <div className={styles["buttons-with-users"]}>
                 <Routes>
                   <Route
-                    path="/"
+                    path="/api-github-recreate/"
                     element={<Form setLogin={setLogin} login={login} />}
                   />
                   <Route
-                    path="/users/:user"
+                    path="/api-github-recreate/users/:user"
                     element={<AllUsers login={login} setLogin={setLogin} />}
                   />
                   <Route
-                    path="/repositories/:repo"
+                    path="/api-github-recreate/repositories/:repo"
                     element={<Repos login={login} setRepos={setRepos} />}
                   />
 
                   <Route
-                    path="/issues/:issue"
+                    path="/api-github-recreate/issues/:issue"
                     element={<Issue login={login} />}
                   />
                 </Routes>
