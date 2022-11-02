@@ -6,17 +6,16 @@ import { useState } from "react";
 import cx from "classnames";
 import styles from "./Issue.module.scss";
 
-interface data {
-  dataElem: {};
-}
-interface content {
-  title: string;
-  body: string;
+interface Data {
+  dataElem: {
+    title: string;
+    body: string;
+  };
 }
 
-export function IssueText({ dataElem }: data) {
+export function IssueText({ dataElem }: Data) {
   const [visible, setVisible] = useState(false);
-  console.log(dataElem);
+
   return (
     <button onClick={() => setVisible(!visible)}>
       <div className={cx(visible && styles["border-title"])}>
