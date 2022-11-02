@@ -4,6 +4,6 @@ import { resolve } from "path";
 // https://vitejs.dev/config/
 
 export default defineConfig({
-  base: "/deploying-vite-project-example/",
+  base: "/git-api/",
   plugins: [react()],
 });
