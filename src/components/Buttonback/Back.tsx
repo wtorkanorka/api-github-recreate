@@ -10,7 +10,7 @@ export function Back() {
           history.back();
         }}
       >
-        <img src="../../assets/back.svg" alt="Обратно" />
+        <img src="/assets/back.svg" alt="Обратно" />
       </div>
       <div
         className={styles["button-back"]}
@@ -18,7 +18,7 @@ export function Back() {
           history.go(1);
         }}
       >
-        <img src="../../assets/forward.svg" alt="Вперед" />
+        <img src="/assets/forward.svg" alt="Вперед" />
       </div>
     </div>
   );
