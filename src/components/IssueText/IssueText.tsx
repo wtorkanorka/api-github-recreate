@@ -17,7 +17,7 @@ export function IssueText({ dataElem }: Data) {
   const [visible, setVisible] = useState(false);
 
   return (
-    <button onClick={() => setVisible(!visible)}>
+    <button onClick={() => setVisible(!visible)} className={styles["style"]}>
       <div className={cx(visible && styles["border-title"])}>
         <ReactMarkdown children={dataElem.title} remarkPlugins={[remarkGfm]} />
       </div>

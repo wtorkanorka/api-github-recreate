@@ -10,6 +10,7 @@ export function Back() {
         onClick={() => {
           history.back();
         }}
+        title="Обратно"
       >
         <img src={back} alt="Обратно" />
       </div>
@@ -18,6 +19,7 @@ export function Back() {
         onClick={() => {
           history.go(1);
         }}
+        title="Вперед"
       >
         <img src={forward} alt="Вперед" />
       </div>

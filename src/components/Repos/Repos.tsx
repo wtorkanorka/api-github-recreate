@@ -30,7 +30,20 @@ export function Repos({ login, setRepos }: Data) {
   if (error) {
     return <p>An error occurred while fetching the data.</p>;
   }
+  function deleteSymbols(elem: string) {
+    const arr = elem.split("");
 
+    const arrayB = ["T", "Z"];
+    const result = arr
+      .map((s) => [...s]) // array of chars
+      .map((chars) => chars.filter((ch) => !arrayB.includes(ch)).join("")) //filter out invalid char and transform back into string
+      .reduce((prev, next) => {
+        prev += next;
+        return prev;
+      });
+
+    return result;
+  }
   return (
     <>
       <Back />
@@ -78,8 +91,8 @@ export function Repos({ login, setRepos }: Data) {
                       <p className={styles["repo-paragraph"]}>
                         Название репозитория: {i.name}
                       </p>
-                      <p>Дата создания: {i.created_at}</p>
-                      <p>Дата обновления: {i.updated_at}</p>
+                      <p>Дата создания: {deleteSymbols(i.created_at)}</p>
+                      <p>Дата обновления: {deleteSymbols(i.updated_at)}</p>
                       <p>id: {i.id}</p>
                       <p>Сейчас просматривают: {i.watchers}</p>
                     </div>

@@ -66,6 +66,7 @@ export function AllUsers({ login, setLogin }: Data) {
                 <Link
                   to={`/api-github-recreate/repositories/${i.login}`}
                   key={index}
+                  className={styles["style"]}
                 >
                   <button
                     className={styles["user-profile"]}

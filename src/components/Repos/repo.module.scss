@@ -31,8 +31,17 @@
   all: unset;
   display: flex;
   flex-direction: column;
+  a {
+    text-decoration: none;
+  }
+  box-shadow: 0px 2px 31px -7px #81735500 inset;
+  transition: 0.2s;
 }
-
+.repos-data:hover {
+  box-shadow: 0px 2px 31px -7px #817355 inset;
+  transition: 0.2s;
+  border-radius: 20px;
+}
 .repo-paragraph {
   text-shadow: 0 0 15px #817355;
   border: 1px solid #776c54;
@@ -58,4 +67,11 @@
   gap: 20px;
   cursor: pointer;
   margin-top: 20px;
+  box-shadow: 0px 2px 31px -7px #81735500 inset;
+  transition: 0.2s;
+}
+
+.next-and-perv:hover {
+  box-shadow: 0px 2px 31px -7px #817355 inset;
+  transition: 0.2s;
 }
